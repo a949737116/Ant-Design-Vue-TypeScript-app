@@ -1,8 +1,17 @@
 <template>
   <a-layout style="min-height: 100vh" :class="$style.mainLayout">
-    <a-layout-sider v-model="collapsed" collapsible :trigger="null">
+    <a-layout-sider
+      v-model="collapsed"
+      collapsible
+      :trigger="null"
+      :theme="themeColorContorl"
+    >
       <div class="logo" :class="$style.logo" />
-      <a-menu theme="dark" :default-selected-keys="['1']" mode="inline">
+      <a-menu
+        :theme="themeColorContorl"
+        :default-selected-keys="['1']"
+        mode="inline"
+      >
         <a-menu-item key="1">
           <a-icon type="pie-chart" />
           <span>Option 1</span>
@@ -91,5 +100,8 @@ import { Component, Vue } from "vue-property-decorator";
 })
 export default class layoutMain extends Vue {
   collapsed = false;
+  get themeColorContorl() {
+    return this.$route.query.themeColor === "white" ? "light" : "dark";
+  }
 }
 </script>

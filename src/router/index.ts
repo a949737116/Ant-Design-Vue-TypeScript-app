@@ -42,7 +42,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((from, to, next) => {
-  nprogress.start();
+  // router的参数改变，但是路径没有改变时，不调用nprogress
+  if (from.path !== to.path) {
+    nprogress.start();
+  }
   next();
 });
 router.afterEach(() => {
