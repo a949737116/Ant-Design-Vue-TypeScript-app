@@ -17,19 +17,18 @@
     </a-menu>
   </div>
 </template>
-<script>
+<script lang='ts'>
 import SubMenu from "./menuSubItem.vue";
-export default {
+import { Component, Vue, Prop } from "vue-property-decorator";
+@Component({
   components: {
-    "sub-menu": SubMenu,
-  },
-  props: {
-    theme: String,
-  },
-  data() {
-    return {
-      collapsed: false,
-      list: [
+    SubMenu
+  }
+})
+export default class menuSub extends Vue{
+  collapsed = false;
+  menuData;
+  list = [
         {
           key: "1",
           title: "Option 1",
@@ -44,14 +43,27 @@ export default {
               children: [{ key: "2.1.1", title: "Option 2.1.1" }],
             },
           ],
-        },
-      ],
-    };
-  },
-  methods: {
-    toggleCollapsed() {
+        }
+  ];
+
+  created() {
+    // 起始路由
+    this.menuData = this.routerConfigData(this.$router.options.routes);
+  }
+
+  routerConfigData(router) {
+    router.forEach(element => {
+      if (element.meta.routerEntry) {
+       
+      }
+    });
+    return 123
+  }
+
+  @Prop({type: String}) theme;
+
+  toggleCollapsed() {
       this.collapsed = !this.collapsed;
-    },
-  },
+  }
 };
 </script>

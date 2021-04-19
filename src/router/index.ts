@@ -7,31 +7,86 @@ import "nprogress/nprogress.css";
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-  // 注册页和登陆页
+  // 主页
+  /**当有name的时候，这个路由才会成为动态的菜单项,否则只有名字没有点击跳转的效果 */
+  /**当有show的时候才会在菜单中展示 */
   {
-    path: "/user",
+    path: "/",
     component: mainLayout,
+    meta: {hasChildrens: true, show: false, routerEntry: true},
+    children: [
+      {
+        path: '/',
+        redirect: '/index',
+        name:'首页',
+        meta: {icon: 'ant-design', title: '主页', hasChildrens: false, show: true},
+      },
+      {
+        path: '/user',
+        meta: {icon: 'usergroup-add', title: '用户管理',  hasChildrens: true, show: true,},
+        children:[
+          {
+            path: '/user/login',
+            name: '登录',
+            meta: { show: true}
+          },
+          {
+            path: '/user/regist',
+            name: '注册',
+            meta: {show: true}
+          }
+        ]
+      },
+      {
+        path: '/step',
+        meta: {icon: 'apartment', title: '流程管理', hasChildrens: true, show: true,},
+        children: [
+          {
+            path: '/step/step1',
+            name:'步骤一',
+            meta: {show: true}
+          },
+          {
+            path: '/step/step2',
+            name: '步骤二',
+            meta: {show: true}
+          },
+          {
+            path: '/step/step3',
+            name: '步骤三',
+            meta: {show: true}
+          }
+        ]
+      },
+      {
+        path: '/403',
+        meta: {
+          hasChildrens: false,
+          show: false
+        }
+      }
+    ]
     // component: {
     //   render: (h) => h("router-view"),
     // },
-    children: [
-      {
-        path: "/user",
-        redirect: "/user/login",
-      },
-      {
-        path: "/user/login",
-        name: "login",
-        component: () =>
-          import(/* webpackChunkName: "user" */ "@/views/user/login.vue"),
-      },
-      {
-        path: "/user/regist",
-        name: "regist",
-        component: () =>
-          import(/* webpackChunkName: "user" */ "@/views/user/regist.vue"),
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "/user",
+    //     redirect: "/user/login",
+    //   },
+    //   {
+    //     path: "/user/login",
+    //     name: "login",
+    //     component: () =>
+    //       import(/* webpackChunkName: "user" */ "@/views/user/login.vue"),
+    //   },
+    //   {
+    //     path: "/user/regist",
+    //     name: "regist",
+    //     component: () =>
+    //       import(/* webpackChunkName: "user" */ "@/views/user/regist.vue"),
+    //   },
+    // ],
   },
 ];
 
