@@ -56,6 +56,15 @@ import { Component, Vue } from "vue-property-decorator";
 @Component
 export default class userDrawer extends Vue {
   visible = false;
+  mounted() {
+    this.$router.push({
+      query: {
+        ...this.$route.query,
+        themeColor: "black",
+        guidePosition: "left",
+      },
+    });
+  }
   afterVisibleChange(val: boolean) {
     console.log("visible", val);
   }

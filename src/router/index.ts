@@ -52,4 +52,10 @@ router.afterEach(() => {
   nprogress.done();
 });
 
+/* 解决NavigationDuplicated: Avoided redundant navigation to current location错误 */
+const originalPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location: any) {
+  return (originalPush.call(this, location) as any).catch((err) => err);
+};
+
 export default router;

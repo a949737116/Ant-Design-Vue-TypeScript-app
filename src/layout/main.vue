@@ -6,36 +6,15 @@
       :trigger="null"
       :theme="themeColorContorl"
     >
-      <div class="logo" :class="$style.logo" />
-      <a-menu
-        :theme="themeColorContorl"
-        :default-selected-keys="['1']"
-        mode="inline"
-      >
-        <a-menu-item key="1">
-          <a-icon type="pie-chart" />
-          <span>Option 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <a-icon type="desktop" />
-          <span>Option 2</span>
-        </a-menu-item>
-        <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="user" /><span>User</span></span>
-          <a-menu-item key="3"> Tom </a-menu-item>
-          <a-menu-item key="4"> Bill </a-menu-item>
-          <a-menu-item key="5"> Alex </a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="team" /><span>Team</span></span>
-          <a-menu-item key="6"> Team 1 </a-menu-item>
-          <a-menu-item key="8"> Team 2 </a-menu-item>
-        </a-sub-menu>
-        <a-menu-item key="9">
-          <a-icon type="file" />
-          <span>File</span>
-        </a-menu-item>
-      </a-menu>
+      <div
+        v-if="themeColorContorl === 'dark'"
+        class="logo"
+        :class="$style.logo"
+      />
+      <div v-else>
+        <img src="@/assets/logo.svg" :class="$style.light__logo" />
+      </div>
+      <menuSub :theme="themeColorContorl" />
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0; text-align: left">
@@ -74,6 +53,10 @@
     background: rgba(255, 255, 255, 0.2);
     margin: 16px;
   }
+  .light__logo {
+    width: 32px;
+    margin: 16px;
+  }
   .mainLayoutBreadcrumb {
     text-align: left;
   }
@@ -88,6 +71,7 @@
 import layoutHeader from "./components/header.vue";
 import slideMenu from "./components/slideMenu.vue";
 import layoutFooter from "./components/footer.vue";
+import menuSub from "./components/menuSub.vue";
 import userDrawer from "./components/userDrawer.vue";
 import { Component, Vue } from "vue-property-decorator";
 @Component({
@@ -96,6 +80,7 @@ import { Component, Vue } from "vue-property-decorator";
     slideMenu,
     layoutFooter,
     userDrawer,
+    menuSub,
   },
 })
 export default class layoutMain extends Vue {
